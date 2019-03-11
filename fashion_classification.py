@@ -112,4 +112,3 @@ def plot_image(i, predictions, true_label, image):
 
     plt.xlabel("{} {:2.0f% ({})").format(classes[predciated_label], 100*np.max(predictions), classes[true_label], color=bar_color)
 
-def plot_value_array()
