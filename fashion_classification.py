@@ -110,5 +110,46 @@ def plot_image(i, predictions, true_label, image):
     else:
         bar_color = 'red'
 
-    plt.xlabel("{} {:2.0f% ({})").format(classes[predciated_label], 100*np.max(predictions), classes[true_label], color=bar_color)
+    plt.xlabel("{} {:2.0f}% ({})".format(classes[predciated_label], 100*np.max(predictions), classes[true_label], color=bar_color))
+
+
+def plot_value_array(i, predictions, true_label):
+    predictions, true_label = predictions[i], true_label[i]
+    plt.grid(False)
+    plt.xticks([])
+    plt.yticks([])
+    plot = plt.bar(range(10), predictions, color='#777777')
+    plt.ylim([0,1])
+    predicted_label = np.argmax(predictions)
+    plot[predicted_label].set_color('red')
+    plot[true_label].set_color('blue')
+
+# Plot the first X test images, their predicted label, and the true label
+# Color correct predictions in blue, incorrect predictions in red
+
+num_rows = 5
+num_columns = 3
+
+num_images = num_rows * num_columns
+
+plt.figure(figsize=(2*2*num_columns, 2*num_rows))
+for i in range(num_images):
+    plt.subplot(num_rows, 2*num_columns, 2*i+1)
+    plot_image(i, predictions, test_labels, test_images)
+    plt.subplot(num_rows, 2*num_columns, 2*i+2)
+    plot_value_array(i, predictions, test_labels)
+plt.show()
+
+#to make a prediction about a single image, add another dimension in the image
+
+image = test_images[45]
+print(image.shape)
+
+image = (np.expand_dims(image,0))
+print(image.shape)
+
+single_prediction = model.predict(image)
+print('Predicted Label is ', classes[np.argmax(single_prediction)])
+print('and true lable is ', classes[test_labels[45]])
+plot_value_array(0, single_prediction, test_labels)
 
