@@ -96,3 +96,20 @@ print(predictions[0], ' and corresponding class is ', np.argmax(predictions[0]))
 print('Actual Label :', test_labels[0])
 print('Is our predictions correct : ')
 print('Yes') if np.argmax(predictions[0]) == test_labels[0] else print('No')
+
+def plot_image(i, predictions, true_label, image):
+    predictions, true_label, image = predictions[i], true_label[i], image[i]
+    plt.grid(False)
+    plt.xticks([])
+    plt.xticks([])
+
+    plt.imshow(image, cmap=plt.cm.binary)
+    predciated_label = np.argmax(predictions)
+    if true_label == predciated_label:
+        bar_color = 'green'
+    else:
+        bar_color = 'red'
+
+    plt.xlabel("{} {:2.0f% ({})").format(classes[predciated_label], 100*np.max(predictions), classes[true_label], color=bar_color)
+
+def plot_value_array()
